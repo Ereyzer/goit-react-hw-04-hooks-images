@@ -63,6 +63,10 @@ class App extends PureComponent {
         .then(r => {
           if (r.hits.length === 0) throw Error('шоза хрінь?');
         });
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
       return resp;
     } catch (error) {
       this.notification(error.message);
@@ -93,7 +97,7 @@ class App extends PureComponent {
     window.removeEventListener('keydown', this.closeModal);
   };
 
-  loadMore = () => {
+  loadMore = e => {
     this.setState({ status: Status.PENDING });
     this.searchService();
   };
