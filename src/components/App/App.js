@@ -2,7 +2,7 @@ import './App.css';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { PureComponent } from 'react';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
-import ApiService from '../Fetch/Fetch';
+import ApiService from '../../service/helpers/Fetch/Fetch';
 import LoaderApp from '../Loader/LoaderApp';
 import { Modal } from '../Modal/Modal';
 import { Button } from '../Button/Button';
@@ -84,18 +84,13 @@ class App extends PureComponent {
     this.setState({ modal: { image, tags } });
   };
   closeModal = e => {
-    if (e.target === e.currentTarget) {
-      this.changeStateModal();
-    }
-    if (e.key === 'Escape') {
-      this.changeStateModal();
-    }
+    this.setState({ modal: null });
+    // this.changeStateModal();
   };
 
-  changeStateModal = () => {
-    this.setState({ modal: null });
-    window.removeEventListener('keydown', this.closeModal);
-  };
+  // changeStateModal = () => {
+
+  // };
 
   loadMore = e => {
     this.setState({ status: Status.PENDING });
@@ -120,7 +115,7 @@ class App extends PureComponent {
         <ImageGallery images={images} openModal={openModal} />
         {status === 'pending' && <LoaderApp />}
         {modal && <Modal modal={modal} closeModal={closeModal} />}
-        {button && <Button loadMore={loadMore} />}
+        {button && <Button loadMore={loadMore} text="Load More" />}
         <ToastContainer
           position="top-right"
           autoClose={5000}
