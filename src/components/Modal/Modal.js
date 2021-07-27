@@ -20,7 +20,7 @@ export function Modal({ modal: { image, tags }, closeModal }) {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [closeModal]);
+  });
 
   return createPortal(
     <div className="Overlay" onClick={handleBackdropClick}>
