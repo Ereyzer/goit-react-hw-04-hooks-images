@@ -6,12 +6,6 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#root-portal');
 export function Modal({ modal: { image, tags }, closeModal }) {
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      closeModal();
-    }
-  };
-
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
       closeModal();
@@ -19,11 +13,14 @@ export function Modal({ modal: { image, tags }, closeModal }) {
   };
 
   useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-    // ! не зовсім зрозуміло чому лінтер хоче щоб запхати в масив handleKeyDown а потім щоб забрати його зводт
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [closeModal]);
 
   return createPortal(
     <div className="Overlay" onClick={handleBackdropClick}>
